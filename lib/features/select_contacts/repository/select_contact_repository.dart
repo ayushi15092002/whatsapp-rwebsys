@@ -32,6 +32,7 @@ class SelectContactRepository {
   }
 
   void selectContact(Contact selectedContact, BuildContext context) async {
+    print("selectContact called");
     try {
       var userCollection = await firestore.collection('users').get();
       bool isFound = false;
@@ -44,12 +45,15 @@ class SelectContactRepository {
         );
         if (selectedPhoneNum == userData.phoneNumber) {
           isFound = true;
+          print("iff");
           Navigator.pushNamed(
             context,
             MobileChatScreen.routeName,
             arguments: {
               'name': userData.name,
               'uid': userData.uid,
+              'isGroupChat': false,
+              'profilePic': ''
             },
           );
         }
@@ -61,7 +65,9 @@ class SelectContactRepository {
           content: 'This number does not exist on this app.',
         );
       }
-    } catch (e) {
+    } catch (e, st)
+    {
+      print("st  >>>>> ${st}");
       showSnackBar(context: context, content: e.toString());
     }
   }

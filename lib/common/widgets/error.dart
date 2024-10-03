@@ -9,6 +9,7 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   print("error ${this.error}");
     return Center(
       child: Text(error),
     );

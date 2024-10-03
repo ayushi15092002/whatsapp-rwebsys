@@ -43,7 +43,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => MobileChatScreen(
           name: name,
           uid: uid,
-          isGroupChat: isGroupChat,
+          isGroupChat: isGroupChat ?? false,
           profilePic: profilePic,
         ),
       );

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,10 +18,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-    const ProviderScope(
+  runZonedGuarded(
+    () => runApp(const ProviderScope(
       child: MyApp(),
-    ),
+    )),
+    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
 

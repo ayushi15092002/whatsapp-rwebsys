@@ -101,6 +101,7 @@ class ContactsList extends ConsumerWidget {
                         children: [
                           InkWell(
                             onTap: () {
+                              print("MobileChatScreen.routeName >>> ${MobileChatScreen.routeName}");
                               Navigator.pushNamed(
                                 context,
                                 MobileChatScreen.routeName,

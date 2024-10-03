@@ -42,14 +42,18 @@ dependencies:
   country_picker: ^2.0.26
   flutter_riverpod: ^2.5.1
   image_picker: ^1.1.2
-  flutter_contacts: ^1.1.8
+#  flutter_contacts: ^1.1.8
+  flutter_contacts:
+    git:
+      url: https://github.com/Tradewind-apps/flutter_contacts
+      ref: pb/fix-incompatible-java-version-target
   enough_giphy_flutter: ^0.4.1
   uuid: ^4.5.1
   agora_uikit: ^1.3.10
   story_view: ^0.16.5
   video_player: ^2.9.1
   emoji_picker_flutter: ^3.1.0
-  flutter_sound: ^9.16.2
+#  flutter_sound: ^9.16.2
   path_provider: ^2.1.4
   permission_handler: ^11.3.1
   intl: ^0.19.0
