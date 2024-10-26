@@ -64,10 +64,15 @@ class GroupRepository {
         groupPic: profileUrl,
         membersUid: [auth.currentUser!.uid, ...uids],
         timeSent: DateTime.now(),
+        members: []
       );
+      print("DSA>12345 ${group.toMap()}");
 
-      await firestore.collection('groups').doc(groupId).set(group.toMap());
+      await firestore.collection('groups').doc(groupId).set(group.toMap()).catchError((error, st) {
+        print("DSA>>> $error $st");
+      });
     } catch (e) {
+      print("DSA>>> $e");
       showSnackBar(context: context, content: e.toString());
     }
   }

@@ -58,17 +58,32 @@ class ChatRepository {
     });
   }
 
-  Stream<List<Group>> getChatGroups() {
-    return firestore.collection('groups').snapshots().map((event) {
-      List<Group> groups = [];
-      for (var document in event.docs) {
-        var group = Group.fromMap(document.data());
-        if (group.membersUid.contains(auth.currentUser!.uid)) {
-          groups.add(group);
-        }
+  Stream<List<Group>> getChatGroups() async* {
+    var querySnapshot = await firestore.collection('groups').get();
+    List<Group> groups = [];
+
+    for (var document in querySnapshot.docs) {
+      var group = Group.fromMap(document.data());
+      if (group.membersUid.contains(auth.currentUser!.uid)) {
+
+        // Fetch group members
+        final usersSnapshot = await firestore
+            .collection('users')
+            .where('uid', whereIn: group.membersUid)
+            .get();
+
+        // Map users to UserModel and add them to the group
+        group.members.addAll(
+            usersSnapshot.docs.map((doc) => UserModel.fromMap(doc.data() as Map<String, dynamic>))
+        );
+
+        // Add the group to the list of groups
+        groups.add(group);
+
+        // Yield the current list of groups after each group is processed
+        yield List<Group>.from(groups);
       }
-      return groups;
-    });
+    }
   }
 
   Stream<List<Message>> getChatStream(String recieverUserId) {

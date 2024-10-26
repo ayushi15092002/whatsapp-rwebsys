@@ -31,6 +31,7 @@ class ContactsList extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       var groupData = snapshot.data![index];
 
+                      print(">>>> ${groupData.members}");
                       return Column(
                         children: [
                           InkWell(
@@ -43,6 +44,7 @@ class ContactsList extends ConsumerWidget {
                                   'uid': groupData.groupId,
                                   'isGroupChat': true,
                                   'profilePic': groupData.groupPic,
+                                  'members': groupData.members,
                                 },
                               );
                             },

@@ -68,6 +68,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                 .jumpTo(messageController.position.maxScrollExtent);
           });
 
+          print("SD>>> ${snapshot.data}");
           return ListView.builder(
             controller: messageController,
             itemCount: snapshot.data!.length,

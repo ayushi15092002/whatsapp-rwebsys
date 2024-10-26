@@ -15,12 +15,14 @@ class MobileChatScreen extends ConsumerWidget {
   final String uid;
   final bool isGroupChat;
   final String profilePic;
+  final List<UserModel> members;
   const MobileChatScreen({
     Key? key,
     required this.name,
     required this.uid,
     required this.isGroupChat,
     required this.profilePic,
+  this.members = const [],
   }) : super(key: key);
 
   void makeCall(WidgetRef ref, BuildContext context) {
@@ -35,6 +37,7 @@ class MobileChatScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("AS>>>>> ${members}");
     return CallPickupScreen(
       scaffold: Scaffold(
         appBar: AppBar(

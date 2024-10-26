@@ -35,4 +35,9 @@ class UserModel {
       groupId: List<String>.from(map['groupId']),
     );
   }
+
+  @override
+  String toString() {
+    return toMap().toString();
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:whatsapp/models/user_model.dart';
+
 class Group {
   final String senderId;
   final String name;
@@ -5,6 +7,7 @@ class Group {
   final String lastMessage;
   final String groupPic;
   final List<String> membersUid;
+  final List<UserModel> members;
   final DateTime timeSent;
   Group({
     required this.senderId,
@@ -14,6 +17,7 @@ class Group {
     required this.groupPic,
     required this.membersUid,
     required this.timeSent,
+    required this.members,
   });
 
   Map<String, dynamic> toMap() {
@@ -37,6 +41,7 @@ class Group {
       groupPic: map['groupPic'] ?? '',
       membersUid: List<String>.from(map['membersUid']),
       timeSent: DateTime.fromMillisecondsSinceEpoch(map['timeSent']),
+      members: []
     );
   }
 }

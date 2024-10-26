@@ -54,4 +54,9 @@ class Message {
       repliedMessageType: (map['repliedMessageType'] as String).toEnum(),
     );
   }
+
+  @override
+  String toString() {
+    return toMap().toString();
+  }
 }
