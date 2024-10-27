@@ -11,14 +11,17 @@ import 'package:whatsapp/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp/features/chat/widgets/my_message_card.dart';
 import 'package:whatsapp/features/chat/widgets/sender_message_card.dart';
 import 'package:whatsapp/models/message.dart';
+import 'package:whatsapp/models/user_model.dart';
 
 class ChatList extends ConsumerStatefulWidget {
   final String recieverUserId;
   final bool isGroupChat;
+  final List<UserModel> members;
   const ChatList({
     Key? key,
     required this.recieverUserId,
     required this.isGroupChat,
+    required this.members
   }) : super(key: key);
 
   @override
@@ -69,6 +72,7 @@ class _ChatListState extends ConsumerState<ChatList> {
           });
 
           print("SD>>> ${snapshot.data}");
+          print("members >>>> ${widget.members}");
           return ListView.builder(
             controller: messageController,
             itemCount: snapshot.data!.length,
@@ -87,6 +91,9 @@ class _ChatListState extends ConsumerState<ChatList> {
               }
               if (messageData.senderId ==
                   FirebaseAuth.instance.currentUser!.uid) {
+                    String currentUserUid = FirebaseAuth.instance.currentUser!.uid;
+                    var currentUser = widget.members.firstWhere((member) => member.uid == currentUserUid);
+
                 return MyMessageCard(
                   message: messageData.text,
                   date: timeSent,
@@ -100,8 +107,12 @@ class _ChatListState extends ConsumerState<ChatList> {
                     messageData.type,
                   ),
                   isSeen: messageData.isSeen,
+                  isGroupChat: widget.isGroupChat,
+                  userDetail: currentUser,
                 );
               }
+              var senderUser = widget.members.firstWhere((member) => member.uid == messageData.senderId);
+              print("senderUser >>>> ${senderUser}");
               return SenderMessageCard(
                 message: messageData.text,
                 date: timeSent,
@@ -114,6 +125,8 @@ class _ChatListState extends ConsumerState<ChatList> {
                   messageData.type,
                 ),
                 repliedText: messageData.repliedMessage,
+                isGroupChat: widget.isGroupChat,
+                userDetail: senderUser,
               );
             },
           );
