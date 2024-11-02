@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp/common/widgets/error.dart';
 import 'package:whatsapp/features/auth/screens/login_screen.dart';
 import 'package:whatsapp/features/auth/screens/otp_screen.dart';
+import 'package:whatsapp/features/auth/screens/profile.dart';
 import 'package:whatsapp/features/auth/screens/user_information_screen.dart';
 import 'package:whatsapp/features/group/screens/create_group_screen.dart';
 import 'package:whatsapp/features/select_contacts/screens/select_contacts_screen.dart';
@@ -11,8 +12,10 @@ import 'package:whatsapp/features/chat/screens/mobile_chat_screen.dart';
 import 'package:whatsapp/features/status/screens/confirm_status_screen.dart';
 import 'package:whatsapp/features/status/screens/status_screen.dart';
 import 'package:whatsapp/models/status_model.dart';
+import 'package:whatsapp/models/user_model.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
+  print("A>>> ${settings.name}");
   switch (settings.name) {
     case LoginScreen.routeName:
       return MaterialPageRoute(
@@ -39,7 +42,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final uid = arguments['uid'];
       final isGroupChat = arguments['isGroupChat'];
       final profilePic = arguments['profilePic'];
-      final members = arguments['members'] ?? [];
+      final members = arguments['members'] ?? <UserModel>[];
       return MaterialPageRoute(
         builder: (context) => MobileChatScreen(
           name: name,
@@ -66,6 +69,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case CreateGroupScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => const CreateGroupScreen(),
+      );
+    case ProfilePage.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const ProfilePage(),
       );
     default:
       return MaterialPageRoute(

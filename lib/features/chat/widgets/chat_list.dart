@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:story_view/widgets/story_view.dart';
 import 'package:whatsapp/common/enums/message_enum.dart';
 import 'package:whatsapp/common/providers/message_reply_provider.dart';
 import 'package:whatsapp/common/widgets/loader.dart';
@@ -89,10 +90,13 @@ class _ChatListState extends ConsumerState<ChatList> {
                       messageData.messageId,
                     );
               }
+              print("widget.isGroupChat>>>>> ${widget.isGroupChat}");
+              print("widget.isGroupChat>>>>> ${widget.isGroupChat}");
               if (messageData.senderId ==
                   FirebaseAuth.instance.currentUser!.uid) {
                     String currentUserUid = FirebaseAuth.instance.currentUser!.uid;
-                    var currentUser = widget.members.firstWhere((member) => member.uid == currentUserUid);
+                    var currentUser = widget.members.where((member) => member.uid == currentUserUid).firstOrNull;
+
 
                 return MyMessageCard(
                   message: messageData.text,
@@ -111,7 +115,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                   userDetail: currentUser,
                 );
               }
-              var senderUser = widget.members.firstWhere((member) => member.uid == messageData.senderId);
+              var senderUser = widget.members.where((member) => member.uid == messageData.senderId).firstOrNull;
               print("senderUser >>>> ${senderUser}");
               return SenderMessageCard(
                 message: messageData.text,

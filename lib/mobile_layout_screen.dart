@@ -9,6 +9,7 @@ import 'package:whatsapp/features/select_contacts/screens/select_contacts_screen
 import 'package:whatsapp/features/chat/widgets/contacts_list.dart';
 import 'package:whatsapp/features/status/screens/confirm_status_screen.dart';
 import 'package:whatsapp/features/status/screens/status_contacts_screen.dart';
+import 'package:whatsapp/features/auth/screens/profile.dart';
 
 class MobileLayoutScreen extends ConsumerStatefulWidget {
   const MobileLayoutScreen({Key? key}) : super(key: key);
@@ -84,6 +85,15 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen>
                   onTap: () => Future(
                     () => Navigator.pushNamed(
                         context, CreateGroupScreen.routeName),
+                  ),
+                ),
+                PopupMenuItem(
+                  child: const Text(
+                    'Profile',
+                  ),
+                  onTap: () => Future(
+                        () => Navigator.pushNamed(
+                        context, ProfilePage.routeName),
                   ),
                 )
               ],

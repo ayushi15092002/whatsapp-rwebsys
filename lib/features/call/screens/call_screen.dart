@@ -34,12 +34,14 @@ class _CallScreenState extends ConsumerState<CallScreen> {
         channelName: widget.channelId,
         tokenUrl: baseUrl,
       ),
+      enabledPermission: [Permission.audio]
     );
     initAgora();
   }
 
   void initAgora() async {
     await client!.initialize();
+    // client.
   }
 
   @override
@@ -50,9 +52,12 @@ class _CallScreenState extends ConsumerState<CallScreen> {
           : SafeArea(
               child: Stack(
                 children: [
-                  AgoraVideoViewer(client: client!),
+                  AgoraVideoViewer(client: client!,
+                  disabledVideoWidget: SizedBox(),
+                  ),
                   AgoraVideoButtons(
                     client: client!,
+                    disableVideoButtonChild: SizedBox(),
                     disconnectButtonChild: IconButton(
                       onPressed: () async {
                         await client!.engine.leaveChannel();
@@ -65,6 +70,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
                       },
                       icon: const Icon(Icons.call_end),
                     ),
+                    // di
                   ),
                 ],
               ),

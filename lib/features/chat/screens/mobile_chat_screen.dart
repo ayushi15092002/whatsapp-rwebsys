@@ -22,7 +22,7 @@ class MobileChatScreen extends ConsumerWidget {
     required this.uid,
     required this.isGroupChat,
     required this.profilePic,
-  this.members = const [],
+  this.members = const <UserModel>[],
   }) : super(key: key);
 
   void makeCall(WidgetRef ref, BuildContext context) {

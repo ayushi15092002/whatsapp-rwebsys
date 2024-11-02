@@ -43,12 +43,14 @@ class MyApp extends ConsumerWidget {
       onGenerateRoute: (settings) => generateRoute(settings),
       home: ref.watch(userDataAuthProvider).when(
             data: (user) {
+              print("AS>> ${user}");
               if (user == null) {
                 return const LandingScreen();
               }
               return const MobileLayoutScreen();
             },
             error: (err, trace) {
+              print("ASA>> $err $trace");
               return ErrorScreen(
                 error: err.toString(),
               );

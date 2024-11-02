@@ -27,6 +27,10 @@ class AuthRepository {
   });
 
   Future<UserModel?> getCurrentUserData() async {
+    print("A;kkhjkjll',;mknj>>>> ${auth.currentUser}");
+    if(auth.currentUser == null) {
+      return null;
+    }
     var userData =
         await firestore.collection('users').doc(auth.currentUser?.uid).get();
 
