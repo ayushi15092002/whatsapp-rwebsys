@@ -91,12 +91,16 @@ class AuthRepository {
     required File? profilePic,
     required ProviderRef ref,
     required BuildContext context,
+    String? state,
+    String? cityDistrict,
+    String? designation,
+    String? profession,
+    String? photoUrl,
   }) async {
     try {
       String uid = auth.currentUser!.uid;
-      String photoUrl =
-          'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
 
+      photoUrl ??= 'https://png.pngitem.com/pimgs/s/649-6490124_katie-notopoulos-katienotopoulos-i-write-about-tech-round.png';
       if (profilePic != null) {
         photoUrl = await ref
             .read(commonFirebaseStorageRepositoryProvider)
@@ -113,6 +117,10 @@ class AuthRepository {
         isOnline: true,
         phoneNumber: auth.currentUser!.phoneNumber!,
         groupId: [],
+        state: state ?? '',
+        cityDistrict: cityDistrict ?? '',
+        designation: designation ?? '',
+        profession: profession ?? '',
       );
 
       await firestore.collection('users').doc(uid).set(user.toMap());

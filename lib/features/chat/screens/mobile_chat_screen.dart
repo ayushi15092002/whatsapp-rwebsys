@@ -9,6 +9,8 @@ import 'package:whatsapp/features/chat/widgets/bottom_chat_field.dart';
 import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/features/chat/widgets/chat_list.dart';
 
+import '../../group/screens/group_profile_screen.dart';
+
 class MobileChatScreen extends ConsumerWidget {
   static const String routeName = '/mobile-chat-screen';
   final String name;
@@ -33,6 +35,13 @@ class MobileChatScreen extends ConsumerWidget {
           profilePic,
           isGroupChat,
         );
+  }
+  void openGroupProfile(BuildContext context) {
+    Navigator.pushNamed(context, GroupProfileScreen.routeName, arguments: {
+      'groupName': name,
+      'profilePic': profilePic,
+      'members': members,
+    });
   }
 
   @override
@@ -65,17 +74,38 @@ class MobileChatScreen extends ConsumerWidget {
                   }),
           centerTitle: false,
           actions: [
+            if(!isGroupChat)
             IconButton(
               onPressed: () => makeCall(ref, context),
               icon: const Icon(Icons.video_call),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.call),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.more_vert),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: const Icon(Icons.call),
+            // ),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: const Icon(Icons.more_vert),
+            // ),
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                if (value == 'Group Profile') {
+                  openGroupProfile(context);
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  if (isGroupChat)
+                    const PopupMenuItem<String>(
+                      value: 'Group Profile',
+                      child: Text('Group Profile'),
+                    ),
+                  const PopupMenuItem<String>(
+                    value: 'Settings',
+                    child: Text('Settings'),
+                  ),
+                ];
+              },
             ),
           ],
         ),

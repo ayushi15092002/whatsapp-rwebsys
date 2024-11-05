@@ -7,6 +7,7 @@ import 'package:whatsapp/features/auth/screens/otp_screen.dart';
 import 'package:whatsapp/features/auth/screens/profile.dart';
 import 'package:whatsapp/features/auth/screens/user_information_screen.dart';
 import 'package:whatsapp/features/group/screens/create_group_screen.dart';
+import 'package:whatsapp/features/group/screens/group_profile_screen.dart';
 import 'package:whatsapp/features/select_contacts/screens/select_contacts_screen.dart';
 import 'package:whatsapp/features/chat/screens/mobile_chat_screen.dart';
 import 'package:whatsapp/features/status/screens/confirm_status_screen.dart';
@@ -73,6 +74,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ProfilePage.routeName:
       return MaterialPageRoute(
         builder: (context) => const ProfilePage(),
+      );
+    case GroupProfileScreen.routeName:
+      final arguments = settings.arguments as Map<String, dynamic>;
+      final groupName = arguments['groupName'];
+      final profilePic = arguments['profilePic'];
+      final members = arguments['members'];
+      return MaterialPageRoute(
+        builder: (context) => GroupProfileScreen(groupName: groupName, profilePic: profilePic, members: members),
       );
     default:
       return MaterialPageRoute(

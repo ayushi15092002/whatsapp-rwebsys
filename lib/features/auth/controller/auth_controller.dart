@@ -41,12 +41,18 @@ class AuthController {
   }
 
   void saveUserDataToFirebase(
-      BuildContext context, String name, File? profilePic) {
+      BuildContext context, String name, File? profilePic, String? state,
+      String? cityDistrict, String? designation, String? profession, String? url) {
     authRepository.saveUserDataToFirebase(
       name: name,
       profilePic: profilePic,
       ref: ref,
       context: context,
+    state: state,
+    cityDistrict: cityDistrict,
+    designation: designation,
+    profession: profession,
+      photoUrl: url
     );
   }
 
